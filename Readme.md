@@ -1,7 +1,7 @@
 # Личный проект «Угадай мелодию» [![Build status][travis-image]][travis-url]
 
 * Студент: [Артём Коновалов](https://up.htmlacademy.ru/ecmascript/2/user/297399).
-* Наставник: `Неизвестно`.
+* Наставник: [Никита Ткачук](https://htmlacademy.ru/profile/id450211).
 
 ---
 

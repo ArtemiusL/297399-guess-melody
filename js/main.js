@@ -23,12 +23,7 @@ const container = document.querySelector(`.main`);
 /**
 *Отрисовка первого экрана
 */
-
-const showFirstSection = () => {
-  container.appendChild(sectionList[0]);
-};
-
-showFirstSection();
+container.appendChild(sectionList[0]);
 
 let numberSection = 0;
 

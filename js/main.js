@@ -8,11 +8,13 @@ const template = document.querySelector(`#templates`).content;
 *Список экранов в нужном порядке
 */
 const sectionList = [
-  template.querySelector(`.main--welcome`), 
-  template.querySelector(`.main--level-genre`),
-  template.querySelector(`.main--level-artist`),
-  template.querySelector(`.main--result`),
-];
+  `.main--welcome`,  
+  `.main--level-genre`,
+  `.main--level-artist`,
+  `.main--result`
+].map((selector) => { 
+  return template.querySelector(selector); 
+}); 
 
 /**
 *Контейнер отрисовки
@@ -41,28 +43,12 @@ const drawSection = (event) => {
   }
 };
 
-let altPress = false;
-
 /**
-*Ловим событbt нажатия alt+(</>)
+*Ловим событbt нажатия alt+(</>) 
 */
 document.addEventListener(`keydown`, function (event) {
-  if (event.altKey) {
-    event.preventDefault();
-    altPress = true;
-  }
-});
-
-document.addEventListener(`keyup`, function (event) {
-  if (event.altKey) {
-    event.preventDefault();
-    altPress = false;
-  }
-});
-
-document.addEventListener(`keydown`, function (event) {
-  if (altPress) {
-    drawSection(event);
+  if (event.altKey) { 
+    drawSection(event);  
   }
 });
 

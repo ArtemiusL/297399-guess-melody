@@ -1,19 +1,18 @@
 /**
 *Шаблон экранов
 */
-const template = document.querySelector(`#templates`);
+const template = document.querySelector(`#templates`).content;
 
 /**
-*Список экранов
-*/
-const templates = Array.prototype.filter.call(template.content.querySelectorAll(`.main`), function (child) {
-  return child;
-});
 
-/*
 *Список экранов в нужном порядке
 */
-const sectionList = [templates[4], templates[0], templates[3], templates[2]];
+const sectionList = [
+  template.querySelector(`.main--welcome`), 
+  template.querySelector(`.main--level-genre`),
+  template.querySelector(`.main--level-artist`),
+  template.querySelector(`.main--result`),
+];
 
 /**
 *Контейнер отрисовки

@@ -35,18 +35,23 @@ const genreScreen = createDom(`<section class="main main--level main--level-genr
   </section>
 `);
 
+const genreForm = genreScreen.querySelector(`.genre`);
 const answerBtn = genreScreen.querySelector(`.genre-answer-send`);
 answerBtn.setAttribute(`disabled`, ` `);
-const answers = [...genreScreen.querySelectorAll(`input[name="answer"]`)];
-answers.forEach(function(answer){
-  answer.addEventListener(`change`, function(event){
-    if(answer.checked) {
+
+genreForm.addEventListener(`click`, function(event){
+  const element = event.target;
+  const checkList = [...genreScreen.querySelectorAll(`input[name="answer"]:checked`)];
+  if(element.tagName !== `INPUT` ) {
+  return;
+  }
+  if(checkList.length) {
     answerBtn.removeAttribute(`disabled`);
   } else {
     answerBtn.setAttribute(`disabled`, ` `);
   }
-  })
-});
+})
+
 answerBtn.addEventListener(`click`, function(event){
   event.preventDefault();
   if(Math.round(Math.random() * 10) > 5) {
@@ -56,6 +61,5 @@ answerBtn.addEventListener(`click`, function(event){
     drawSection(failResult);
   }
   
-  console.log('Привет');
 })
 export default genreScreen;

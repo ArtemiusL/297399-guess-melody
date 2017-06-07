@@ -40,11 +40,9 @@ gulp.task('style', function () {
 gulp.task('scripts', function () {
   return gulp.src('js/main.js')
     .pipe(plumber())
-    /*.pipe(sourcemaps.init())
-    // use IIFE format
+    .pipe(sourcemaps.init())
     .pipe(rollup({}, 'iife'))
-    // save sourcemap as separate file (in the same folder)
-    .pipe(sourcemaps.write(''))*/
+    .pipe(sourcemaps.write(''))
     .pipe(gulp.dest('build/js/'));
 });
 

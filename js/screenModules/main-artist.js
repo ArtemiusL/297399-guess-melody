@@ -3,8 +3,7 @@ import drawSection from '../draw-section';
 import genreScreen from './main-genre';
 import questions from '../questions';
 
-const artistScreen = (currentQuestion) => 
-`<section class="main main--level main--level-artist">
+const artistScreen = (currentQuestion) => `<section class="main main--level main--level-artist">
     <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
       <circle
         cx="390" cy="390" r="370"
@@ -49,18 +48,16 @@ const artistScreen = (currentQuestion) =>
         </div>
       </form>
     </div>
-  </section>` 
-;
+  </section>`;
 
 const mainArtist = createDom(artistScreen(questions[0]));
 
 const answers = [...mainArtist.querySelectorAll(`.main-answer`)];
-answers.forEach (function (answer) {
+answers.forEach(function (answer) {
   answer.addEventListener(`click`, function (event) {
     event.preventDefault();
     drawSection(genreScreen);
-	}
-		)
-	}
-);
+  }
+		);
+});
 export default mainArtist;

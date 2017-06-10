@@ -14,10 +14,10 @@ const screen = createDom(`<section class="main main--welcome">
   </section>`);
 
 const playBtn = screen.querySelector(`.main-play`);
-playBtn.addEventListener(`click`, function(event){
-	event.preventDefault();
-	drawSection(artistScreen);
-}  );
+playBtn.addEventListener(`click`, function (event) {
+  event.preventDefault();
+  drawSection(artistScreen);
+});
 
 
 export default screen;

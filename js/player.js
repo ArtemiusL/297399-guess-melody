@@ -22,6 +22,7 @@ const switchState = (state, player, element) => {
   }
 
   syncState(player, element);
+  return false;
 };
 
 
@@ -42,7 +43,7 @@ const destroyPlayer = (element, state) => {
 };
 
 
-const initializePlayer = (element, file, autoplay = false, controllable = true) => {
+window.initializePlayer = (element, file, autoplay = false, controllable = true) => {
   let state = {};
 
   const content = document.querySelector(`template`)
@@ -50,10 +51,11 @@ const initializePlayer = (element, file, autoplay = false, controllable = true) 
     .querySelector(`.player`)
     .cloneNode(true);
   const player = content.querySelector(`audio`);
+  const button = content.querySelector(`button`);
 
   player.onloadeddata = () => {
     if (controllable) {
-      element.onclick = () => player.pause();
+      button.onclick = () => switchState(state, player, content);
     }
 
     if (autoplay) {
@@ -67,5 +69,3 @@ const initializePlayer = (element, file, autoplay = false, controllable = true) 
 
   return () => destroyPlayer(element, state);
 };
-
-export default initializePlayer;

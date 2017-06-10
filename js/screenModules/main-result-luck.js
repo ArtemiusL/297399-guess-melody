@@ -13,10 +13,10 @@ const luckResult = (statistic) => `<section class="main main--result">
   </section>`;
 
 const finalResultLuck = createDom(luckResult(resultData));
-const replayBtn = finalResultLuck.querySelector('.main-replay');
-replayBtn.addEventListener(`click`, function(event){
-	event.preventDefault();
-	drawSection(screen);
-})
+const replayBtn = finalResultLuck.querySelector(`.main-replay`);
+replayBtn.addEventListener(`click`, function (event) {
+  event.preventDefault();
+  drawSection(screen);
+});
 
 export default finalResultLuck;

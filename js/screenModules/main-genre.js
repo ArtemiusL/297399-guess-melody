@@ -2,7 +2,6 @@ import createDom from '../createDomElement';
 import drawSection from '../draw-section';
 import luckResult from './main-result-luck';
 import failResult from './main-result-fail';
-import musicPlayer from '../player';
 import tracks from '../tracks';
 
 const genreScreen = (question) => `<section class="main main--level main--level-genre">
@@ -37,41 +36,38 @@ const genreScreen = (question) => `<section class="main main--level main--level-
   </section>
 `;
 
-const mainGenre = createDom(genreScreen(tracks[0])); 
+const mainGenre = createDom(genreScreen(tracks[0]));
 
 const playersElements = [...mainGenre.querySelectorAll(`.player-wrapper`)];
 
-playersElements.forEach( function(currentPlayer) {
-currentPlayer.addEventListener(`click`, function (event) {
-  musicPlayer(currentPlayer, currentPlayer.dataset.track , true);
-})
+playersElements.forEach(function (currentPlayer) {
+  window.initializePlayer(currentPlayer, currentPlayer.dataset.track, false);
 });
 
 const genreForm = mainGenre.querySelector(`.genre`);
 const answerBtn = mainGenre.querySelector(`.genre-answer-send`);
 answerBtn.setAttribute(`disabled`, ` `);
 
-genreForm.addEventListener(`click`, function(event){
+genreForm.addEventListener(`click`, function (event) {
   const element = event.target;
   const checkList = [...mainGenre.querySelectorAll(`input[name="answer"]:checked`)];
-  if(element.tagName !== `INPUT` ) {
-  return;
+  if (element.tagName !== `INPUT`) {
+    return;
   }
-  if(checkList.length) {
+  if (checkList.length) {
     answerBtn.removeAttribute(`disabled`);
   } else {
     answerBtn.setAttribute(`disabled`, ` `);
   }
-})
+});
 
-answerBtn.addEventListener(`click`, function(event){
+answerBtn.addEventListener(`click`, function (event) {
   event.preventDefault();
-  if(Math.round(Math.random() * 10) > 5) {
+  if (Math.round(Math.random() * 10) > 5) {
     drawSection(luckResult);
-  }
-  else {
+  } else {
     drawSection(failResult);
   }
-  
-})
+});
 export default mainGenre;
+

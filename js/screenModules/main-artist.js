@@ -1,8 +1,10 @@
 import createDom from '../createDomElement';
 import drawSection from '../draw-section';
 import genreScreen from './main-genre';
+import questions from '../questions';
 
-const artistScreen = createDom(`<section class="main main--level main--level-artist">
+const artistScreen = (currentQuestion) => 
+`<section class="main main--level main--level-artist">
     <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
       <circle
         cx="390" cy="390" r="370"
@@ -26,7 +28,7 @@ const artistScreen = createDom(`<section class="main main--level main--level-art
           <input class="main-answer-r" type="radio" id="answer-1" name="answer" value="val-1" />
           <label class="main-answer" for="answer-1">
             <img class="main-answer-preview" src="">
-            Пелагея
+            ${currentQuestion.answers[0].value}
           </label>
         </div>
 
@@ -34,7 +36,7 @@ const artistScreen = createDom(`<section class="main main--level main--level-art
           <input class="main-answer-r" type="radio" id="answer-2" name="answer" value="val-1" />
           <label class="main-answer" for="answer-2">
             <img class="main-answer-preview" src="">
-            Краснознаменная дивизия имени моей бабушки
+            ${currentQuestion.answers[1].value}
           </label>
         </div>
 
@@ -42,14 +44,17 @@ const artistScreen = createDom(`<section class="main main--level main--level-art
           <input class="main-answer-r" type="radio" id="answer-3" name="answer" value="val-1" />
           <label class="main-answer" for="answer-3">
             <img class="main-answer-preview" src="">
-            Lorde
+            ${currentQuestion.answers[2].value}
           </label>
         </div>
       </form>
     </div>
-  </section>`);
+  </section>` 
+;
 
-const answers = [...artistScreen.querySelectorAll(`.main-answer`)];
+const mainArtist = createDom(artistScreen(questions[0]));
+
+const answers = [...mainArtist.querySelectorAll(`.main-answer`)];
 answers.forEach (function (answer) {
   answer.addEventListener(`click`, function (event) {
     event.preventDefault();
@@ -58,4 +63,4 @@ answers.forEach (function (answer) {
 		)
 	}
 );
-export default artistScreen;
+export default mainArtist;

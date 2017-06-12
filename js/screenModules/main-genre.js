@@ -9,8 +9,8 @@ const genreScreen = (question) => `<section class="main main--level main--level-
     <form class="genre">
     ${[...question.melodies].map((melodie, item) => `<div class="genre-answer">
         <div class="player-wrapper" data-track="${melodie.file}"></div>
-        <input type="checkbox" name="answer" value="answer-${item+1}" id="a-${item+1}">
-        <label class="genre-answer-check" for="a-${item+1}"></label>
+        <input type="checkbox" name="answer" value="answer-${item + 1}" id="a-${item + 1}">
+        <label class="genre-answer-check" for="a-${item + 1}"></label>
       </div>`
       )
     }

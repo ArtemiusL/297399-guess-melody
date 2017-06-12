@@ -25,12 +25,12 @@ const artistScreen = (currentQuestion) => `<section class="main main--level main
       <form class="main-list">
       ${[...currentQuestion.answers].map((answer, item) =>
        `<div class="main-answer-wrapper">
-          <input class="main-answer-r" type="radio" id="answer-${item+1}" name="answer" value="val-${item+1}" />
-          <label class="main-answer" for="answer-${item+1}">
+          <input class="main-answer-r" type="radio" id="answer-${item + 1}" name="answer" value="val-${item + 1}" />
+          <label class="main-answer" for="answer-${item + 1}">
             <img class="main-answer-preview" src="">
             ${answer.value}
           </label>
-        </div>` )}
+        </div>`)}
       </form>
     </div>
   </section>`;

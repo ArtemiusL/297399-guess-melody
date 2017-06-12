@@ -7,30 +7,13 @@ import tracks from '../tracks';
 const genreScreen = (question) => `<section class="main main--level main--level-genre">
     <h2 class="title">Выберите ${question.genre} треки</h2>
     <form class="genre">
-      <div class="genre-answer">
-        <div class="player-wrapper" data-track="${question.melodies[0].file}"></div>
-        <input type="checkbox" name="answer" value="answer-1" id="a-1">
-        <label class="genre-answer-check" for="a-1"></label>
-      </div>
-
-      <div class="genre-answer">
-        <div class="player-wrapper" data-track="${question.melodies[1].file}"></div>
-        <input type="checkbox" name="answer" value="answer-1" id="a-2">
-        <label class="genre-answer-check" for="a-2"></label>
-      </div>
-
-      <div class="genre-answer">
-        <div class="player-wrapper" data-track="${question.melodies[2].file}"></div>
-        <input type="checkbox" name="answer" value="answer-1" id="a-3">
-        <label class="genre-answer-check" for="a-3"></label>
-      </div>
-
-      <div class="genre-answer">
-        <div class="player-wrapper" data-track="${question.melodies[3].file}"></div>
-        <input type="checkbox" name="answer" value="answer-1" id="a-4">
-        <label class="genre-answer-check" for="a-4"></label>
-      </div>
-
+    ${[...question.melodies].map((melodie, item) => `<div class="genre-answer">
+        <div class="player-wrapper" data-track="${melodie.file}"></div>
+        <input type="checkbox" name="answer" value="answer-${item+1}" id="a-${item+1}">
+        <label class="genre-answer-check" for="a-${item+1}"></label>
+      </div>`
+      )
+    }
       <button class="genre-answer-send" type="submit">Ответить</button>
     </form>
   </section>

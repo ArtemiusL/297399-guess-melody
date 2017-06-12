@@ -38,7 +38,7 @@ gulp.task('style', function () {
 });
 
 gulp.task('scripts', function () {
-  return gulp.src(['js/main.js', 'js/player.js', 'js/animate.js'])
+  return gulp.src(['js/player.js', 'js/animate.js', 'js/main.js'])
     .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(rollup({}, 'iife'))

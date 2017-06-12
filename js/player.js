@@ -22,6 +22,7 @@ const switchState = (state, player, element) => {
   }
 
   syncState(player, element);
+  return false;
 };
 
 

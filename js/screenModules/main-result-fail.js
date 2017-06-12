@@ -11,10 +11,11 @@ const failResult = createDom(`<section class="main main--result">
     <span role="button" tabindex="0" class="main-replay">Сыграть ещё раз</span>
   </section>`);
 
-const replayBtn = failResult.querySelector('.main-replay');
-replayBtn.addEventListener(`click`, function(event){
-	event.preventDefault();
-	drawSection(screen);
-})
+const replayBtn = failResult.querySelector(`.main-replay`);
+replayBtn.addEventListener(`click`, function (event) {
+  event.preventDefault();
+  drawSection(screen);
+});
 
 export default failResult;
+

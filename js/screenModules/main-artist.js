@@ -1,8 +1,9 @@
 import createDom from '../createDomElement';
 import drawSection from '../draw-section';
 import genreScreen from './main-genre';
+import questions from '../questions';
 
-const artistScreen = createDom(`<section class="main main--level main--level-artist">
+const artistScreen = (currentQuestion) => `<section class="main main--level main--level-artist">
     <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
       <circle
         cx="390" cy="390" r="370"
@@ -22,40 +23,26 @@ const artistScreen = createDom(`<section class="main main--level main--level-art
       <h2 class="title main-title">Кто исполняет эту песню?</h2>
       <div class="player-wrapper"></div>
       <form class="main-list">
-        <div class="main-answer-wrapper">
-          <input class="main-answer-r" type="radio" id="answer-1" name="answer" value="val-1" />
-          <label class="main-answer" for="answer-1">
+      ${[...currentQuestion.answers].map((answer, item) =>
+       `<div class="main-answer-wrapper">
+          <input class="main-answer-r" type="radio" id="answer-${item + 1}" name="answer" value="val-${item + 1}" />
+          <label class="main-answer" for="answer-${item + 1}">
             <img class="main-answer-preview" src="">
-            Пелагея
+            ${answer.value}
           </label>
-        </div>
-
-        <div class="main-answer-wrapper">
-          <input class="main-answer-r" type="radio" id="answer-2" name="answer" value="val-1" />
-          <label class="main-answer" for="answer-2">
-            <img class="main-answer-preview" src="">
-            Краснознаменная дивизия имени моей бабушки
-          </label>
-        </div>
-
-        <div class="main-answer-wrapper">
-          <input class="main-answer-r" type="radio" id="answer-3" name="answer" value="val-1" />
-          <label class="main-answer" for="answer-3">
-            <img class="main-answer-preview" src="">
-            Lorde
-          </label>
-        </div>
+        </div>`)}
       </form>
     </div>
-  </section>`);
+  </section>`;
 
-const answers = [...artistScreen.querySelectorAll(`.main-answer`)];
-answers.forEach (function (answer) {
+const mainArtist = createDom(artistScreen(questions[0]));
+
+const answers = [...mainArtist.querySelectorAll(`.main-answer`)];
+answers.forEach(function (answer) {
   answer.addEventListener(`click`, function (event) {
     event.preventDefault();
     drawSection(genreScreen);
-	}
-		)
-	}
-);
-export default artistScreen;
+  }
+		);
+});
+export default mainArtist;

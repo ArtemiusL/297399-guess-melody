@@ -38,7 +38,7 @@ gulp.task('style', function () {
 });
 
 gulp.task('scripts', function () {
-  return gulp.src('js/main.js')
+  return gulp.src(['js/player.js', 'js/animate.js', 'js/main.js'])
     .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(rollup({}, 'iife'))
@@ -65,7 +65,14 @@ gulp.task('copy-html', function () {
     .pipe(server.stream());
 });
 
-gulp.task('copy', ['copy-html', 'scripts', 'style'], function () {
+gulp.task('copy-audio', function () {
+  return gulp.src('audio/*.mp3')
+    .pipe(gulp.dest('build/audio'))
+    .pipe(server.stream());
+});
+
+
+gulp.task('copy', ['copy-html','copy-audio', 'scripts', 'style'], function () {
   return gulp.src([
     'fonts/**/*.{woff,woff2}',
     'img/*.*'

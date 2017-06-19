@@ -11,12 +11,16 @@
 // Длина окружности = 2πR
 // Длина шага = Длина окружности / Количество шагов
 // Пропуск = Длина шага * Номер шага
+import animate from './animate.js';
+import formatTime from './time-format.js';
+import {getState, setState} from './data/initalState';
+
 const redrawCircle = (circle, radius, animation) => {
   const length = 2 * Math.PI * radius;
   const stepLength = length / animation.steps;
   const lengthToClear = stepLength * animation.step;
 
-  circle.setAttributeNS(null, `r`, radius.greet());
+  circle.setAttributeNS(null, `r`, radius.toString());
   circle.setAttributeNS(null, `stroke-dasharray`, length.toString());
   circle.setAttributeNS(null, `stroke-dashoffset`, lengthToClear.toString());
 
@@ -26,11 +30,10 @@ const redrawCircle = (circle, radius, animation) => {
 
 const addLeadingZero = (val) => val < 10 ? `0${val}` : val;
 
-
 const redrawTimer = (timer, animation) => {
   const total = animation.stepDuration * animation.steps;
   const passed = animation.stepDuration * animation.step;
-  const timeLeft = window.formatTime(total, passed);
+  const timeLeft = formatTime(total, passed);
 
   timer.querySelector(`.timer-value-mins`).textContent = addLeadingZero(timeLeft.minutes);
   timer.querySelector(`.timer-value-secs`).textContent = addLeadingZero(timeLeft.seconds);
@@ -38,14 +41,24 @@ const redrawTimer = (timer, animation) => {
   return timer;
 };
 
+const updateSecondsLeft = (animation) => {
+  const state = getState();
+  setState(Object.assign({}, state, {
+    secondsPassed: animation.step
+  }));
+};
 
-window.initializeCountdown = () => {
+
+const initializeCountdown = (step, stepDuration, steps) => {
   const element = document.querySelector(`.timer-line`);
   const radius = parseInt(element.getAttributeNS(null, `r`), 10);
   const timer = document.querySelector(`.timer-value`);
 
-  return window.animation.animate(window.animation.getAnimation(0, 1000, 4), (animation) => {
+  return animate.animate(animate.getAnimation(step, stepDuration, steps), (animation) => {
     redrawCircle(element, radius, animation);
     redrawTimer(timer, animation);
+    updateSecondsLeft(animation);
   }, () => timer.classList.add(`timer-value--finished`));
 };
+
+export default initializeCountdown;

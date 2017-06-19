@@ -7,7 +7,7 @@
     "eslint": "eslint js/",
     "build": "gulp build",
     "start": "gulp serve",
-    "test": "npm run eslint && gulp test"
+    "test": "gulp test"
   },
   "devDependencies": {
     "autoprefixer": "6.7.7",
@@ -34,9 +34,9 @@
   "engines": {
     "node": "6.10"
   },
-"babel": {
-  "plugins": [
-    "transform-es2015-modules-commonjs"
-  ]
-}
+  "babel": {
+    "plugins": [
+      "transform-es2015-modules-commonjs"
+    ]
+  }
 }

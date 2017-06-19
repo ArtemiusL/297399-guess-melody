@@ -1,5 +1,8 @@
-import drawSection from './draw-section';
-import screen from './screenModules/main-welcom';
+import {getState, setState} from './data/initalState';
+import {resetGame} from './logic/main-logic';
+import {renderState} from './logic/render';
 
-drawSection(screen);
+setState(resetGame(getState()));
+renderState();
+
 

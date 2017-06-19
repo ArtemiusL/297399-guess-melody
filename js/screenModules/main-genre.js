@@ -1,56 +1,66 @@
-import createDom from '../createDomElement';
-import drawSection from '../draw-section';
-import luckResult from './main-result-luck';
-import failResult from './main-result-fail';
-import tracks from '../tracks';
+import createDom from '../support/createDomElement';
+import initializePlayer from '../player.js';
 
-const genreScreen = (question) => `<section class="main main--level main--level-genre">
-    <h2 class="title">Выберите ${question.genre} треки</h2>
-    <form class="genre">
-    ${[...question.melodies].map((melodie, item) => `<div class="genre-answer">
-        <div class="player-wrapper" data-track="${melodie.file}"></div>
-        <input type="checkbox" name="answer" value="answer-${item + 1}" id="a-${item + 1}">
-        <label class="genre-answer-check" for="a-${item + 1}"></label>
-      </div>`
-      )
-    }
-      <button class="genre-answer-send" type="submit">Ответить</button>
-    </form>
-  </section>
-`;
+export default ({songs, trueSong, answerCallback}) => {
 
-const mainGenre = createDom(genreScreen(tracks[0]));
+  const templateAnswer = (answer) => `
+    <div class="genre-answer">
+    <div class="player-wrapper" data-track="${answer.filePath}"></div>
+    <input type="checkbox" name="answer" value="${answer.genre}" " id="${answer.id}">
+    <label class="genre-answer-check" for="${answer.id}"></label>
+  </div>`;
 
-const playersElements = [...mainGenre.querySelectorAll(`.player-wrapper`)];
 
-playersElements.forEach(function (currentPlayer) {
-  window.initializePlayer(currentPlayer, currentPlayer.dataset.track, false);
-});
+  const templateMain = `<section class="main">
+    <section class="main main--level main--level-genre">
+      <h2 class="title">Выберите ${trueSong.genre} треки</h2>
+      <form class="genre">
+        ${songs.map((answer) => templateAnswer(answer)).join(``)}
+        <button class="genre-answer-send" disabled>Ответить</button>
+      </form>
+    </section>
+  </section>`;
 
-const genreForm = mainGenre.querySelector(`.genre`);
-const answerBtn = mainGenre.querySelector(`.genre-answer-send`);
-answerBtn.setAttribute(`disabled`, ` `);
+  const screenLevelGenre = createDom(templateMain);
 
-genreForm.addEventListener(`click`, function (event) {
-  const element = event.target;
-  const checkList = [...mainGenre.querySelectorAll(`input[name="answer"]:checked`)];
-  if (element.tagName !== `INPUT`) {
-    return;
-  }
-  if (checkList.length) {
-    answerBtn.removeAttribute(`disabled`);
-  } else {
-    answerBtn.setAttribute(`disabled`, ` `);
-  }
-});
+  const playerWrappers = screenLevelGenre.querySelectorAll(`.player-wrapper`);
+  const checkboxes = screenLevelGenre.querySelectorAll(`input[name="answer"]`);
+  const answerSend = screenLevelGenre.querySelector(`.genre-answer-send`);
 
-answerBtn.addEventListener(`click`, function (event) {
-  event.preventDefault();
-  if (Math.round(Math.random() * 10) > 5) {
-    drawSection(luckResult);
-  } else {
-    drawSection(failResult);
-  }
-});
-export default mainGenre;
+  playerWrappers.forEach((wrapper) => initializePlayer(wrapper, wrapper.dataset.track, false));
 
+  checkboxes.forEach(function (checkbox) {
+
+    checkbox.addEventListener(`change`, function () {
+      if (checkbox.checked) {
+        answerSend.removeAttribute(`disabled`);
+      } else {
+        answerSend.setAttribute(`disabled`, ``);
+      }
+
+    });
+  });
+
+  const checkAnswer = () => {
+    const correctAnswers = [];
+    checkboxes.forEach((checkbox) => {
+      const answerGenre = checkbox.value;
+      const trueGenre = trueSong.genre;
+
+      if ((checkbox.checked && answerGenre !== trueGenre) || (!checkbox.checked && answerGenre === trueGenre)) {
+        correctAnswers.push(false);
+      } else {
+        correctAnswers.push(true);
+      }
+    });
+    return (correctAnswers.indexOf(false) !== -1) ? false : true;
+  };
+
+  const onAnswerClick = function (event) {
+    answerCallback(checkAnswer());
+  };
+
+  answerSend.addEventListener(`click`, onAnswerClick);
+
+  return screenLevelGenre;
+};

@@ -1,22 +1,19 @@
-import createDom from '../createDomElement';
-import drawSection from '../draw-section';
-import screen from './main-welcom.js';
-import resultData from '../results-data';
+import createDom from '../support/createDomElement';
 
-const luckResult = (statistic) => `<section class="main main--result">
+export default ({totalScore, percentage, onClickReplay}) => {
+  const template = `<section class="main main--result main--result-success">
     <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
-
     <h2 class="title">Вы настоящий меломан!</h2>
-    <div class="main-stat">За&nbsp;${statistic.minutes}&nbsp;минуты<br>вы&nbsp;отгадали ${statistic.melodies}&nbsp;мелодии</div>
-    <span class="main-comparison">Это&nbsp;лучше чем у&nbsp;${statistic.percent}%&nbsp;игроков</span>
+    <div class="main-stat">За&nbsp;2&nbsp;минуты<br>вы&nbsp;отгадали ${totalScore}&nbsp;мелодии</div>
+    <span class="main-comparison">Это&nbsp;лучше чем у&nbsp;${percentage}%&nbsp;игроков</span>
     <span role="button" tabindex="0" class="main-replay">Сыграть ещё раз</span>
   </section>`;
 
-const finalResultLuck = createDom(luckResult(resultData));
-const replayBtn = finalResultLuck.querySelector(`.main-replay`);
-replayBtn.addEventListener(`click`, function (event) {
-  event.preventDefault();
-  drawSection(screen);
-});
+  const screenResultSuccess = createDom(template);
 
-export default finalResultLuck;
+  const replayButton = screenResultSuccess.querySelector(`.main-replay`);
+
+  replayButton.addEventListener(`click`, onClickReplay);
+
+  return screenResultSuccess;
+};

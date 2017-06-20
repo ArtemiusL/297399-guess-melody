@@ -48,7 +48,6 @@ const updateSecondsLeft = (animation) => {
   }));
 };
 
-
 const initializeCountdown = (step, stepDuration, steps) => {
   const element = document.querySelector(`.timer-line`);
   const radius = parseInt(element.getAttributeNS(null, `r`), 10);
@@ -62,3 +61,4 @@ const initializeCountdown = (step, stepDuration, steps) => {
 };
 
 export default initializeCountdown;
+

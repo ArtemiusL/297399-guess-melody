@@ -27,10 +27,9 @@ export function nextQuestion(state) {
       trueSong,
     };
   } else {
-    const songs = getUniqueItemsFromArray(4, songsData);
     const trueSong = getRandomItem(songs);
     screenData = {
-      songs,
+      songs: getUniqueItemsFromArray(4, songsData),
       trueSong,
     };
   }
@@ -49,7 +48,7 @@ export function onQuestionAnswered(state, isAnswerCorrect) {
   const newScore = state.score + (isAnswerCorrect ? 1 : 0);
   const newLives = isAnswerCorrect ? lives : lives - 1;
 
-  if (newLives < 0 || timer <= 0) {
+  if (newLives = 0 || timer <= 0) {
 
     return Object.assign({}, state, {
       lives: newLives,

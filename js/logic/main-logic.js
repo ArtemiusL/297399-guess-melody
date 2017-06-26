@@ -6,33 +6,21 @@ import songsData from '../data/tracks';
 
 
 export function resetGame(state) {
-  const newState = Object.assign({}, state, {
-    screen: `welcome`,
-    currentQuestion: 0,
-    lives: 3,
-    score: 0
-  });
-  return newState;
+  return Object.assign({}, state);
 }
 
 export function nextQuestion(state) {
   const newScreen = getRandomScreenName();
   let screenData;
-
-  if (newScreen === `question-artist`) {
-    const songs = getUniqueItemsFromArray(3, songsData);
-    const trueSong = getRandomItem(songs);
-    screenData = {
-      songs,
-      trueSong,
-    };
-  } else {
-    const trueSong = getRandomItem(songs);
-    screenData = {
-      songs: getUniqueItemsFromArray(4, songsData),
-      trueSong,
-    };
-  }
+  const songs = getUniqueItemsFromArray(
+    (newScreen === `question-artist` ? 3 : 4),
+      songsData
+  );
+  const trueSong = getRandomItem(songs);
+  screenData = {
+    songs,
+    trueSong,
+  };
 
   return Object.assign({}, state, {
     currentQuestion: state.currentQuestion + 1,
@@ -48,7 +36,7 @@ export function onQuestionAnswered(state, isAnswerCorrect) {
   const newScore = state.score + (isAnswerCorrect ? 1 : 0);
   const newLives = isAnswerCorrect ? lives : lives - 1;
 
-  if (newLives = 0 || timer <= 0) {
+  if (newLives < 0 || timer <= 0) {
 
     return Object.assign({}, state, {
       lives: newLives,

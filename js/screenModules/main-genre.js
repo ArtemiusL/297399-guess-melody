@@ -28,32 +28,28 @@ export default ({songs, trueSong, answerCallback}) => {
   const answerSend = screenLevelGenre.querySelector(`.genre-answer-send`);
 
   playerWrappers.forEach((wrapper) => initializePlayer(wrapper, wrapper.dataset.track, false));
-
+  let trueChecks = 0;
   checkboxes.forEach(function (checkbox) {
-
     checkbox.addEventListener(`change`, function () {
-      if (checkbox.checked) {
-        answerSend.removeAttribute(`disabled`);
-      } else {
+      trueChecks += (checkbox.checked ? 1 : -1);
+      if (trueChecks === 0) {
         answerSend.setAttribute(`disabled`, ``);
+      } else {
+        answerSend.removeAttribute(`disabled`);
       }
-
     });
   });
 
   const checkAnswer = () => {
-    const correctAnswers = [];
-    checkboxes.forEach((checkbox) => {
-      const answerGenre = checkbox.value;
+    for (let i = 0; checkboxes.length; i++) {
+      const answerGenre = checkboxes[i].value;
       const trueGenre = trueSong.genre;
 
-      if ((checkbox.checked && answerGenre !== trueGenre) || (!checkbox.checked && answerGenre === trueGenre)) {
-        correctAnswers.push(false);
-      } else {
-        correctAnswers.push(true);
+      if ((checkboxes[i].checked && answerGenre !== trueGenre) || (!checkboxes[i].checked && answerGenre === trueGenre)) {
+        return false;
       }
-    });
-    return (correctAnswers.indexOf(false) !== -1) ? false : true;
+    }
+    return true;
   };
 
   const onAnswerClick = function (event) {

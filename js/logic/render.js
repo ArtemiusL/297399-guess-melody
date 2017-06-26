@@ -26,7 +26,6 @@ const renderTimer = function (template) {
 
 export function renderState() {
   const state = getState();
-
   switch (state.screen) {
 
     case `welcome`:
@@ -54,7 +53,7 @@ export function renderState() {
         songs: state.screenData.songs,
         trueSong: state.screenData.trueSong,
         answerCallback: (isAnswerCorrect) => {
-          setState(onQuestionAnswered(getState(), isAnswerCorrect));
+          setState(onQuestionAnswered(state, isAnswerCorrect));
           renderState();
         }
       }));

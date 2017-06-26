@@ -1,21 +1,22 @@
-let state = {
+export const initialState = {
   screen: `welcome`,
   lives: 3,
   timer: 120,
   currentQuestion: 0,
-  questions: 3,
+  questions: 10,
   score: 0,
   percentage: 0,
   statistics: [
-    {time: 20, score: 10},
-    {time: 32, score: 10},
+    {time: 40, score: 10},
+    {time: 80, score: 9},
     {time: 44, score: 10},
-    {time: 20, score: 8},
-    {time: 50, score: 7}
+    {time: 30, score: 8},
+    {time: 50, score: 0}
   ],
 };
-export const getState = () => state;
+let state = {};
 export const setState = (newState) => {
   state = newState;
 };
+export const getState = () => state;
 

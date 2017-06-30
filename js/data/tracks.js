@@ -2,7 +2,7 @@ const tracks = [
   {
     id: 1,
     genre: `Регги`,
-    filePathPath: `http://gamersss.esy.es/artem/audio/Silent Partner-True_Love.mp3`,
+    filePath: `http://gamersss.esy.es/artem/audio/Silent Partner-True_Love.mp3`,
     imgPath: `img/music-cover.jpg`,
     artist: `Silent Partner`,
   },

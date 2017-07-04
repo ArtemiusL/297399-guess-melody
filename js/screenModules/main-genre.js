@@ -16,7 +16,7 @@ export default ({songs, trueSong, answerCallback}) => {
       <h2 class="title">Выберите ${trueSong.genre} треки</h2>
       <form class="genre">
         ${songs.map((answer) => templateAnswer(answer)).join(``)}
-        <button class="genre-answer-send" disabled>Ответить</button>
+        <button type="button" class="genre-answer-send" disabled>Ответить</button>
       </form>
     </section>
   </section>`;

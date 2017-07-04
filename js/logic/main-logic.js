@@ -10,6 +10,7 @@ export function resetGame(state) {
 }
 
 export function nextQuestion(state) {
+  debugger
   const newScreen = getRandomScreenName();
   let screenData;
   const songs = getUniqueItemsFromArray(

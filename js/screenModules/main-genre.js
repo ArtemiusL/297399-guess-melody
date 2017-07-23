@@ -41,7 +41,7 @@ export default ({songs, trueSong, answerCallback}) => {
   });
 
   const checkAnswer = () => {
-    for (let i = 0; checkboxes.length; i++) {
+    for (let i = 0; i < checkboxes.length; i++) {
       const answerGenre = checkboxes[i].value;
       const trueGenre = trueSong.genre;
 

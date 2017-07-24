@@ -1,4 +1,4 @@
-let state = {
+let state = { 
   screen: `welcome`,
   lives: 3,
   timer: 120,

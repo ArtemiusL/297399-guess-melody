@@ -1,4 +1,4 @@
-const tracks = [
+const songsData  = [
   {
     id: 1,
     genre: `Регги`,
@@ -141,4 +141,4 @@ const tracks = [
   },
 ];
 
-export default tracks;
+export default songsData ;

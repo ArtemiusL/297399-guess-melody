@@ -1,9 +1,9 @@
-export const initialState = {
+let state = {
   screen: `welcome`,
   lives: 3,
   timer: 120,
   currentQuestion: 0,
-  questions: 10,
+  questions: 5,
   score: 0,
   percentage: 0,
   statistics: [
@@ -14,9 +14,8 @@ export const initialState = {
     {time: 50, score: 0}
   ],
 };
-let state = {};
+export const getState = () => state;
 export const setState = (newState) => {
   state = newState;
 };
-export const getState = () => state;
 

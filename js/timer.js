@@ -13,7 +13,7 @@
 // Пропуск = Длина шага * Номер шага
 import animate from './animate.js';
 import formatTime from './time-format.js';
-import {getState, setState} from './data/initalState';
+import {getState, setState} from './data/game-state.js';
 
 const redrawCircle = (circle, radius, animation) => {
   const length = 2 * Math.PI * radius;

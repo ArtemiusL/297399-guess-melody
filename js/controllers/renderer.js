@@ -1,14 +1,18 @@
-import {getState, setState} from '../data/initalState';
-import {resetGame, nextQuestion, onQuestionAnswered} from './main-logic';
+import {getState, setState} from '../data/game-state';
+
+import {resetGame, nextQuestion, onQuestionAnswered} from './logic-controller';
 import initializeCountdown from '../timer.js';
 
-import screenWelcome from '../screenModules/main-welcom';
-import screenLevelArtist from '../screenModules/main-artist';
-import screenLevelGenre from '../screenModules/main-genre';
-import screenLevelSuccess from '../screenModules/main-result-luck';
-import screenLevelFail from '../screenModules/main-result-fail';
-import screenTimer from '../screenModules/screen-timer';
-import clearTimer from '../support/clear-timer';
+import welcome from '../screens/welcome';
+import levelArtist from '../screens/level-artist';
+import levelGenre from '../screens/level-genre';
+import resultSuccess from '../screens/result-success';
+import resultFail from '../screens/result-fail';
+import showTimer from '../screens/show-timer';
+
+import convertTime from '../utils/convert-time';
+import clearTimer from '../utils/clear-timer';
+
 
 const app = document.querySelector(`.app`);
 let currentScreen;
@@ -25,24 +29,23 @@ const renderTimer = function (template) {
 };
 
 export function renderState() {
-  debugger
   const state = getState();
+
   switch (state.screen) {
 
     case `welcome`:
-      return renderScreen(screenWelcome({
+      return renderScreen(welcome({
         onPlayClick: () => {
           setState(nextQuestion(getState()));
           renderState();
-          renderTimer(screenTimer(state.timer));
+          renderTimer(showTimer(convertTime(state.timer)));
           initializeCountdown(0, 1000, state.timer);
         }
       }));
 
     case `question-artist`:
-      return renderScreen(screenLevelArtist({
-        songs: state.screenData.songs,
-        trueSong: state.screenData.trueSong,
+      return renderScreen(levelArtist({
+        data: state.screenData,
         answerCallback: (isAnswerCorrect) => {
           setState(onQuestionAnswered(getState(), isAnswerCorrect));
           renderState();
@@ -50,9 +53,8 @@ export function renderState() {
       }));
 
     case `question-genre`:
-      return renderScreen(screenLevelGenre({
-        songs: state.screenData.songs,
-        trueSong: state.screenData.trueSong,
+      return renderScreen(levelGenre({
+        data: state.screenData,
         answerCallback: (isAnswerCorrect) => {
           setState(onQuestionAnswered(getState(), isAnswerCorrect));
           renderState();
@@ -61,7 +63,7 @@ export function renderState() {
 
     case `result-success`:
       clearTimer();
-      return renderScreen(screenLevelSuccess({
+      return renderScreen(resultSuccess({
         totalScore: state.score,
         percentage: state.screenData.percentage,
         onClickReplay: () => {
@@ -72,7 +74,7 @@ export function renderState() {
 
     case `result-fail`:
       clearTimer();
-      return renderScreen(screenLevelFail({
+      return renderScreen(resultFail({
         onClickReplay: () => {
           setState(resetGame(getState()));
           renderState();

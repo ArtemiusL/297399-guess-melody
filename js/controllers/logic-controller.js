@@ -1,27 +1,38 @@
-import getRandomScreenName from '../support/get-random-screen-name';
-import getUniqueItemsFromArray from '../support/get-unique-items-from-array';
-import computePercentage from '../support/computer-percentage';
-import getRandomItem from '../support/get-random-item';
-import songsData from '../data/tracks';
-
+import getRandomScreenName from '../utils/get-random-screen-name';
+import getUniqueItemsFromArray from '../utils/get-unique-items-from-array';
+import computePercentage from '../utils/compute-percentage';
+import getRandomItem from '../utils/get-random-item';
+import songsData from '../data/songs-data';
 
 export function resetGame(state) {
-  return Object.assign({}, state);
+  const newState = Object.assign({}, state, {
+    screen: `welcome`,
+    currentQuestion: 0,
+    lives: 3,
+    score: 0
+  });
+  return newState;
 }
 
 export function nextQuestion(state) {
-  debugger
   const newScreen = getRandomScreenName();
   let screenData;
-  const songs = getUniqueItemsFromArray(
-    (newScreen === `question-artist` ? 3 : 4),
-      songsData
-  );
-  const trueSong = getRandomItem(songs);
-  screenData = {
-    songs,
-    trueSong,
-  };
+
+  if (newScreen === `question-artist`) {
+    const songs = getUniqueItemsFromArray(3, songsData);
+    const trueSong = getRandomItem(songs);
+    screenData = {
+      songs,
+      trueSong,
+    };
+  } else {
+    const songs = getUniqueItemsFromArray(4, songsData);
+    const trueSong = getRandomItem(songs);
+    screenData = {
+      songs,
+      trueSong,
+    };
+  }
 
   return Object.assign({}, state, {
     currentQuestion: state.currentQuestion + 1,

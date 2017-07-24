@@ -1,8 +1,8 @@
-import {initialState, setState} from './data/initalState';
-import {resetGame} from './logic/main-logic';
-import {renderState} from './logic/render';
+import {getState, setState} from './data/game-state';
+import {resetGame} from './controllers/logic-controller';
+import {renderState} from './controllers/renderer';
 
-setState(resetGame(initialState));
+setState(resetGame(getState()));
 renderState();
 
 
